@@ -2,6 +2,7 @@ package net.voigon.jackson.bukkitserializers.deser;
 
 import java.io.IOException;
 
+import net.voigon.jackson.bukkitserializers.BukkitModule;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 

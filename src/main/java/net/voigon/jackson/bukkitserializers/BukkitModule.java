@@ -1,5 +1,8 @@
 package net.voigon.jackson.bukkitserializers;
 
+import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -18,13 +21,24 @@ public class BukkitModule extends SimpleModule {
 	 */
 	private static final long serialVersionUID = -691716720754398590L;
 
-	public BukkitModule() {
-		setDeserializers(new BukkitDeserializers());
-		setSerializers(new BukkitSerializers());
+	@Getter
+	final Server
+			server;
 
-		setKeyDeserializers(new BukkitKeyDeserializers());
-		setKeySerializers(new BukkitKeySerializers());
+	public BukkitModule(Server server) {
+		this.server = server;
+
+		setDeserializers(new BukkitDeserializers(this));
+		setSerializers(new BukkitSerializers(this));
+
+		setKeyDeserializers(new BukkitKeyDeserializers(this));
+		setKeySerializers(new BukkitKeySerializers(this));
 		
+	}
+
+	public BukkitModule() {
+		this(Bukkit.getServer());
+
 	}
 	
 	/**

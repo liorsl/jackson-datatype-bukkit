@@ -1,6 +1,7 @@
 package net.voigon.jackson.bukkitserializers.deser;
 
 import net.md_5.bungee.api.chat.*;
+import net.voigon.jackson.bukkitserializers.BukkitModule;
 import org.bukkit.Chunk;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
@@ -26,11 +27,11 @@ public class BukkitDeserializers extends SimpleDeserializers {
 	 */
 	private static final long serialVersionUID = 1046766209568867036L;
 	
-	public BukkitDeserializers() {
-		addDeserializer(World.class, new WorldDeserializer());
+	public BukkitDeserializers(BukkitModule module) {
+		addDeserializer(World.class, new WorldDeserializer(module));
 		addDeserializer(Block.class, new BlockDeserializer());
 		addDeserializer(Chunk.class, new ChunkDeserializer());
-		addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());
+		addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer(module));
 		addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
 		addDeserializer(NamespacedKey.class, new NamespacedKeyDeserializer());
 		addDeserializer(Enchantment.class, new EnchantmentDeserializer());

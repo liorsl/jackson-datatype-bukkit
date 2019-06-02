@@ -1,5 +1,6 @@
 package net.voigon.jackson.bukkitserializers.ser;
 
+import net.voigon.jackson.bukkitserializers.BukkitModule;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import com.fasterxml.jackson.databind.BeanDescription;
@@ -16,7 +17,7 @@ public class BukkitSerializers extends SimpleSerializers {
 	 */
 	private static final long serialVersionUID = 8614884790302634085L;
 	
-	public BukkitSerializers() {
+	public BukkitSerializers(BukkitModule module) {
 		addSerializer(new WorldSerializer());
 		addSerializer(new BlockSerializer());
 		addSerializer(new ChunkSerializer());

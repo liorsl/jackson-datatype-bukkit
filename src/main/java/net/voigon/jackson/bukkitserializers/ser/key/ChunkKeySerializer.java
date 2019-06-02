@@ -10,7 +10,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class ChunkKeySerializer extends JsonSerializer<Chunk> {
 	
-	protected ChunkKeySerializer() {}
+	protected ChunkKeySerializer() {
+
+	}
 	
 	@Override
 	public void serialize(Chunk value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

@@ -23,9 +23,14 @@ public class BukkitSerializers extends SimpleSerializers {
 		addSerializer(new ChunkSerializer());
 		addSerializer(new OfflinePlayerSerializer());
 		addSerializer(new PotionEffectTypeSerializer());
-		addSerializer(new NamespacedKeySerializer());
 		addSerializer(new EnchantmentSerializer());
 		addSerializer(new PlayerSerializer());
+
+		try {
+			// Make sure the class exists
+			Class.forName("org.bukkit.NamespacedKey");
+			addSerializer(new NamespacedKeySerializer());
+		} catch (Exception e) {}
 
 		BaseComponentSerializer md5_component = new BaseComponentSerializer();
 		addSerializer(md5_component);

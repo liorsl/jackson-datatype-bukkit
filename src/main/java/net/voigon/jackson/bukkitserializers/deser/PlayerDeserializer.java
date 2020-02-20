@@ -1,7 +1,10 @@
 package net.voigon.jackson.bukkitserializers.deser;
 
 import java.io.IOException;
+import java.util.UUID;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.voigon.jackson.bukkitserializers.BukkitModule;
 import org.bukkit.entity.Player;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -18,17 +21,19 @@ public class PlayerDeserializer extends StdDeserializer<Player> {
 	 */
 	private static final long serialVersionUID = -8600330377467101307L;
 
-	private PlayerKeyDeserializer
-			keyDeserializer = new PlayerKeyDeserializer();
+	private BukkitModule
+			bukkitModule;
 	
-	protected PlayerDeserializer() {
+	protected PlayerDeserializer(BukkitModule module) {
 		super(Player.class);
+
+		this.bukkitModule = module;
 		
 	}
 
 	@Override
 	public Player deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-		return keyDeserializer.deserializeKey(p.getText(), ctxt);
+		return bukkitModule.getServer().getPlayer(UUID.fromString(p.getValueAsString()));
 	}
 
 }

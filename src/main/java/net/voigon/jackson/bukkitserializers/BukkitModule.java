@@ -25,6 +25,11 @@ public class BukkitModule extends SimpleModule {
 	final Server
 			server;
 
+	/**
+	 * Construct a new instance of BukkitModule with specified Bukkit's server instance.
+	 *
+	 * @param server server instance to use with the module
+	 */
 	public BukkitModule(Server server) {
 		this.server = server;
 
@@ -36,6 +41,10 @@ public class BukkitModule extends SimpleModule {
 		
 	}
 
+	/**
+	 * Constructs a new BukkitModule instance, using Server from Bukkit#getServer.
+	 *
+	 */
 	public BukkitModule() {
 		this(Bukkit.getServer());
 
@@ -53,5 +62,5 @@ public class BukkitModule extends SimpleModule {
 		addDeserializer(clazz, new BukkitDeserializer<>(clazz));
 		return this;
 	}
-	
+
 }

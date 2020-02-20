@@ -35,7 +35,7 @@ public class BukkitDeserializers extends SimpleDeserializers {
 		addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
 		addDeserializer(NamespacedKey.class, new NamespacedKeyDeserializer());
 		addDeserializer(Enchantment.class, new EnchantmentDeserializer());
-		addDeserializer(Player.class, new PlayerDeserializer());
+		addDeserializer(Player.class, new PlayerDeserializer(module));
 
 		BaseComponentDeserializer md5ChatComponent = new BaseComponentDeserializer();
 		addDeserializer(BaseComponent[].class, md5ChatComponent);

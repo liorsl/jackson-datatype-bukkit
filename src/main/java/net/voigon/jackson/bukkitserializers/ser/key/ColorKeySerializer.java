@@ -16,4 +16,8 @@ public class ColorKeySerializer extends JsonSerializer<Color> {
 		
 	}
 
+	@Override
+	public Class<Color> handledType() {
+		return Color.class;
+	}
 }

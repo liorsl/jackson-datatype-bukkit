@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 public class ChunkKeySerializer extends JsonSerializer<Chunk> {
 	
 	protected ChunkKeySerializer() {
-
 	}
 	
 	@Override
@@ -20,4 +19,8 @@ public class ChunkKeySerializer extends JsonSerializer<Chunk> {
 		
 	}
 
+	@Override
+	public Class<Chunk> handledType() {
+		return Chunk.class;
+	}
 }

@@ -2,6 +2,7 @@ package net.voigon.jackson.bukkitserializers;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
@@ -13,6 +14,8 @@ import net.voigon.jackson.bukkitserializers.deser.key.BukkitKeyDeserializers;
 import net.voigon.jackson.bukkitserializers.ser.BukkitSerializer;
 import net.voigon.jackson.bukkitserializers.ser.BukkitSerializers;
 import net.voigon.jackson.bukkitserializers.ser.key.BukkitKeySerializers;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.inventory.ItemStack;
 
 public class BukkitModule extends SimpleModule {
 
@@ -38,7 +41,10 @@ public class BukkitModule extends SimpleModule {
 
 		setKeyDeserializers(new BukkitKeyDeserializers(this));
 		setKeySerializers(new BukkitKeySerializers(this));
-		
+
+		registerWithBukkit(Location.class);
+		registerWithBukkit(ItemStack.class);
+
 	}
 
 	/**

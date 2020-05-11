@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -26,7 +27,7 @@ public class BukkitSerializer<T extends ConfigurationSerializable> extends StdSe
 		super(clazz);
 		
 		this.ignoreEntries = ignoreEntries == null ? new HashSet<>() : ignoreEntries;
-		
+
 	}
 
 	@Override
@@ -44,9 +45,9 @@ public class BukkitSerializer<T extends ConfigurationSerializable> extends StdSe
 			if (!remove.contains(key) && (key == null || map.get(key) == null))
 				remove.add(key);
 		
-		remove.forEach(key -> map.remove(key));
+		remove.forEach(map::remove);
 		
-		mapper.writeValue(gen, value.serialize());
+		mapper.writeValue(gen, map);
 
 	}
 

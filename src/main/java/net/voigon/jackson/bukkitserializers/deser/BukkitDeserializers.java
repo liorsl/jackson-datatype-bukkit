@@ -45,19 +45,24 @@ public class BukkitDeserializers extends SimpleDeserializers {
 			addDeserializer(NamespacedKey.class, new NamespacedKeyDeserializer());
 		} catch (Exception e) {}
 
-		BaseComponentDeserializer md5ChatComponent = new BaseComponentDeserializer();
-		addDeserializer(BaseComponent[].class, md5ChatComponent);
-		addDeserializer(BaseComponent.class, md5ChatComponent.new SingleBaseComponentDeserializer());
-		addDeserializer(TextComponent[].class, md5ChatComponent.new GenericComponentCaster(TextComponent[].class));
-		addDeserializer(TextComponent.class, md5ChatComponent.new SingleGenericComponentCaster(TextComponent.class));
-		addDeserializer(KeybindComponent[].class, md5ChatComponent.new GenericComponentCaster(KeybindComponent[].class));
-		addDeserializer(KeybindComponent.class, md5ChatComponent.new SingleGenericComponentCaster(KeybindComponent.class));
-		addDeserializer(SelectorComponent[].class, md5ChatComponent.new GenericComponentCaster(SelectorComponent[].class));
-		addDeserializer(SelectorComponent.class, md5ChatComponent.new SingleGenericComponentCaster(SelectorComponent.class));
-		addDeserializer(ScoreComponent[].class, md5ChatComponent.new GenericComponentCaster(ScoreComponent[].class));
-		addDeserializer(ScoreComponent.class, md5ChatComponent.new SingleGenericComponentCaster(ScoreComponent.class));
-		addDeserializer(TranslatableComponent[].class, md5ChatComponent.new GenericComponentCaster(TranslatableComponent[].class));
-		addDeserializer(TranslatableComponent.class, md5ChatComponent.new SingleGenericComponentCaster(TranslatableComponent.class));
+		try {
+			BaseComponentDeserializer md5ChatComponent = new BaseComponentDeserializer();
+			addDeserializer(BaseComponent[].class, md5ChatComponent);
+			addDeserializer(BaseComponent.class, md5ChatComponent.new SingleBaseComponentDeserializer());
+			addDeserializer(TextComponent[].class, md5ChatComponent.new GenericComponentCaster(TextComponent[].class));
+			addDeserializer(TextComponent.class, md5ChatComponent.new SingleGenericComponentCaster(TextComponent.class));
+			addDeserializer(KeybindComponent[].class, md5ChatComponent.new GenericComponentCaster(KeybindComponent[].class));
+			addDeserializer(KeybindComponent.class, md5ChatComponent.new SingleGenericComponentCaster(KeybindComponent.class));
+			addDeserializer(SelectorComponent[].class, md5ChatComponent.new GenericComponentCaster(SelectorComponent[].class));
+			addDeserializer(SelectorComponent.class, md5ChatComponent.new SingleGenericComponentCaster(SelectorComponent.class));
+			addDeserializer(ScoreComponent[].class, md5ChatComponent.new GenericComponentCaster(ScoreComponent[].class));
+			addDeserializer(ScoreComponent.class, md5ChatComponent.new SingleGenericComponentCaster(ScoreComponent.class));
+			addDeserializer(TranslatableComponent[].class, md5ChatComponent.new GenericComponentCaster(TranslatableComponent[].class));
+			addDeserializer(TranslatableComponent.class, md5ChatComponent.new SingleGenericComponentCaster(TranslatableComponent.class));
+
+		} catch (NoClassDefFoundError e) {
+
+		}
 
 
 	}

@@ -1,9 +1,9 @@
 package net.voigon.jackson.bukkitserializers;
 
 import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Server;
+import net.voigon.jackson.bukkitserializers.internal.CraftTypeResolver;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -14,7 +14,7 @@ import net.voigon.jackson.bukkitserializers.deser.key.BukkitKeyDeserializers;
 import net.voigon.jackson.bukkitserializers.ser.BukkitSerializer;
 import net.voigon.jackson.bukkitserializers.ser.BukkitSerializers;
 import net.voigon.jackson.bukkitserializers.ser.key.BukkitKeySerializers;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class BukkitModule extends SimpleModule {
@@ -36,6 +36,14 @@ public class BukkitModule extends SimpleModule {
 	public BukkitModule(Server server) {
 		this.server = server;
 
+		CraftTypeResolver resolver = new CraftTypeResolver();
+		resolver.addMapping(World.class, "CraftWorld");
+		resolver.addMapping(Player.class, "entity.CraftPlayer");
+		resolver.addMapping(OfflinePlayer.class, "CraftOfflinePlayer");
+		resolver.addMapping(Chunk.class, "CraftChunk");
+		resolver.addMapping(Block.class, "block.CraftBlock");
+		setAbstractTypes(resolver);
+
 		setDeserializers(new BukkitDeserializers(this));
 		setSerializers(new BukkitSerializers(this));
 
@@ -44,7 +52,8 @@ public class BukkitModule extends SimpleModule {
 
 		registerWithBukkit(Location.class);
 		registerWithBukkit(ItemStack.class);
-		
+
+
 	}
 
 	/**

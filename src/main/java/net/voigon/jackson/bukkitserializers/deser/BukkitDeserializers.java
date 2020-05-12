@@ -2,6 +2,8 @@ package net.voigon.jackson.bukkitserializers.deser;
 
 import net.md_5.bungee.api.chat.*;
 import net.voigon.jackson.bukkitserializers.BukkitModule;
+import net.voigon.jackson.bukkitserializers.internal.CraftTypeResolver;
+import net.voigon.jackson.bukkitserializers.internal.NMSUtils;
 import org.bukkit.Chunk;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
@@ -26,8 +28,13 @@ public class BukkitDeserializers extends SimpleDeserializers {
 	 * 
 	 */
 	private static final long serialVersionUID = 1046766209568867036L;
-	
-	public BukkitDeserializers(BukkitModule module) {
+
+	private CraftTypeResolver
+			resolver;
+
+	public BukkitDeserializers(BukkitModule module, CraftTypeResolver resolver) {
+		this.resolver = resolver;
+
 		addDeserializer(World.class, new WorldDeserializer(module));
 		addDeserializer(Block.class, new BlockDeserializer());
 		addDeserializer(Chunk.class, new ChunkDeserializer());
@@ -53,7 +60,7 @@ public class BukkitDeserializers extends SimpleDeserializers {
 
 
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public JsonDeserializer<?> findBeanDeserializer(JavaType type, DeserializationConfig config,

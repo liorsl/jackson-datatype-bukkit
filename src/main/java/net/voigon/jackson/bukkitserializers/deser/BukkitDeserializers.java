@@ -29,12 +29,7 @@ public class BukkitDeserializers extends SimpleDeserializers {
 	 */
 	private static final long serialVersionUID = 1046766209568867036L;
 
-	private CraftTypeResolver
-			resolver;
-
-	public BukkitDeserializers(BukkitModule module, CraftTypeResolver resolver) {
-		this.resolver = resolver;
-
+	public BukkitDeserializers(BukkitModule module) {
 		addDeserializer(World.class, new WorldDeserializer(module));
 		addDeserializer(Block.class, new BlockDeserializer());
 		addDeserializer(Chunk.class, new ChunkDeserializer());

@@ -45,24 +45,49 @@ public class BukkitDeserializers extends SimpleDeserializers {
 			addDeserializer(NamespacedKey.class, new NamespacedKeyDeserializer());
 		} catch (Exception e) {}
 
+		BaseComponentDeserializer md5ChatComponent = new BaseComponentDeserializer();
+
 		try {
-			BaseComponentDeserializer md5ChatComponent = new BaseComponentDeserializer();
+			// Make sure the class exists
+			Class.forName("net.md_5.bungee.api.chat.BaseComponent");
 			addDeserializer(BaseComponent[].class, md5ChatComponent);
 			addDeserializer(BaseComponent.class, md5ChatComponent.new SingleBaseComponentDeserializer());
+		} catch (Exception e) {}
+
+		try {
+			// Make sure the class exists
+			Class.forName("net.md_5.bungee.api.chat.TextComponent");
 			addDeserializer(TextComponent[].class, md5ChatComponent.new GenericComponentCaster(TextComponent[].class));
 			addDeserializer(TextComponent.class, md5ChatComponent.new SingleGenericComponentCaster(TextComponent.class));
+		} catch (Exception e) {}
+
+		try {
+			// Make sure the class exists
+			Class.forName("net.md_5.bungee.api.chat.KeybindComponent");
 			addDeserializer(KeybindComponent[].class, md5ChatComponent.new GenericComponentCaster(KeybindComponent[].class));
 			addDeserializer(KeybindComponent.class, md5ChatComponent.new SingleGenericComponentCaster(KeybindComponent.class));
+		} catch (Exception e) {}
+
+		try {
+			// Make sure the class exists
+			Class.forName("net.md_5.bungee.api.chat.SelectorComponent");
 			addDeserializer(SelectorComponent[].class, md5ChatComponent.new GenericComponentCaster(SelectorComponent[].class));
 			addDeserializer(SelectorComponent.class, md5ChatComponent.new SingleGenericComponentCaster(SelectorComponent.class));
+		} catch (Exception e) {}
+
+		try {
+			// Make sure the class exists
+			Class.forName("net.md_5.bungee.api.chat.ScoreComponent");
 			addDeserializer(ScoreComponent[].class, md5ChatComponent.new GenericComponentCaster(ScoreComponent[].class));
 			addDeserializer(ScoreComponent.class, md5ChatComponent.new SingleGenericComponentCaster(ScoreComponent.class));
+		} catch (Exception e) {}
+
+		try {
+			// Make sure the class exists
+			Class.forName("net.md_5.bungee.api.chat.TranslatableComponent");
 			addDeserializer(TranslatableComponent[].class, md5ChatComponent.new GenericComponentCaster(TranslatableComponent[].class));
 			addDeserializer(TranslatableComponent.class, md5ChatComponent.new SingleGenericComponentCaster(TranslatableComponent.class));
-
-		} catch (NoClassDefFoundError e) {
-
-		}
+		} catch (Exception e) {}
 
 
 	}

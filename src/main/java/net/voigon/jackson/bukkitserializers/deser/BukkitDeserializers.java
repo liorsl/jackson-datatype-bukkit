@@ -4,6 +4,7 @@ import net.md_5.bungee.api.chat.*;
 import net.voigon.jackson.bukkitserializers.BukkitModule;
 import net.voigon.jackson.bukkitserializers.internal.CraftTypeResolver;
 import net.voigon.jackson.bukkitserializers.internal.NMSUtils;
+import net.voigon.jackson.bukkitserializers.ser.NamespacedKeySerializer;
 import org.bukkit.Chunk;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
@@ -35,9 +36,14 @@ public class BukkitDeserializers extends SimpleDeserializers {
 		addDeserializer(Chunk.class, new ChunkDeserializer());
 		addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer(module));
 		addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
-		addDeserializer(NamespacedKey.class, new NamespacedKeyDeserializer());
 		addDeserializer(Enchantment.class, new EnchantmentDeserializer());
 		addDeserializer(Player.class, new PlayerDeserializer(module));
+
+		try {
+			// Make sure the class exists
+			Class.forName("org.bukkit.NamespacedKey");
+			addDeserializer(NamespacedKey.class, new NamespacedKeyDeserializer());
+		} catch (Exception e) {}
 
 		BaseComponentDeserializer md5ChatComponent = new BaseComponentDeserializer();
 		addDeserializer(BaseComponent[].class, md5ChatComponent);

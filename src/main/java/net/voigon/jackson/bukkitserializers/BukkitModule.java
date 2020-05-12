@@ -44,7 +44,7 @@ public class BukkitModule extends SimpleModule {
 
 		registerWithBukkit(Location.class);
 		registerWithBukkit(ItemStack.class);
-
+		
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package net.voigon.jackson.bukkitserializers.ser;
 
 import net.voigon.jackson.bukkitserializers.BukkitModule;
+import net.voigon.jackson.bukkitserializers.internal.NMSUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import com.fasterxml.jackson.databind.BeanDescription;
@@ -18,13 +19,14 @@ public class BukkitSerializers extends SimpleSerializers {
 	private static final long serialVersionUID = 8614884790302634085L;
 	
 	public BukkitSerializers(BukkitModule module) {
-		addSerializer(new WorldSerializer());
-		addSerializer(new BlockSerializer());
-		addSerializer(new ChunkSerializer());
-		addSerializer(new OfflinePlayerSerializer());
+		addCraftSerializer("CraftWorld", new WorldSerializer());
+		addCraftSerializer("block.CraftBlock", new BlockSerializer());
+		addCraftSerializer("CraftChunk", new ChunkSerializer());
+		addCraftSerializer("CraftOfflinePlayer", new OfflinePlayerSerializer());
+		addCraftSerializer("entity.CraftPlayer", new PlayerSerializer());
+
 		addSerializer(new PotionEffectTypeSerializer());
 		addSerializer(new EnchantmentSerializer());
-		addSerializer(new PlayerSerializer());
 
 		try {
 			// Make sure the class exists
@@ -37,7 +39,25 @@ public class BukkitSerializers extends SimpleSerializers {
 		addSerializer(md5_component.new SingleBaseComponentSerializer());
 
 	}
-	
+
+	public void addCraftSerializer(String craftName, JsonSerializer<?> ser) {
+		super.addSerializer(ser);
+
+		try {
+			Class<?> clazz = NMSUtils.getClass(false, craftName);
+			super._addSerializer(clazz, ser);
+		} catch (ClassNotFoundException e) {
+		}
+
+	}
+
+	@Override
+	public <T> void addSerializer(Class<? extends T> type, JsonSerializer<T> ser) {
+		if (type.isInterface()) {
+		}
+		super.addSerializer(type, ser);
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public JsonSerializer<?> findSerializer(SerializationConfig config, JavaType type, BeanDescription beanDesc) {

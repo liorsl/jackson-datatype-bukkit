@@ -21,11 +21,15 @@ public class BukkitKeyDeserializers extends SimpleKeyDeserializers {
 	public BukkitKeyDeserializers(BukkitModule module) {
 		addDeserializer(Chunk.class, new ChunkKeyDeserializer(module));
 		addDeserializer(PotionEffectType.class, new PotionEffectTypeKeyDeserializer());
-		addDeserializer(NamespacedKey.class, new NamespacedKeyKeyDeserializer());
 		addDeserializer(OfflinePlayer.class, new OfflinePlayerKeyDeserializer(module));
 		addDeserializer(Enchantment.class, new EnchantmentKeyDeserializer());
 		addDeserializer(Color.class, new ColorKeyDeserializer());
 		addDeserializer(Player.class, new PlayerKeyDeserializer(module));
-		
+
+		try {
+			Class.forName("org.bukkit.NamespacedKey");
+			addDeserializer(NamespacedKey.class, new NamespacedKeyKeyDeserializer());
+
+		} catch (Exception e) {}
 	}
 }
